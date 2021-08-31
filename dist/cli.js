@@ -8,7 +8,7 @@ const react_1 = __importDefault(require("react"));
 const ink_1 = require("ink");
 const meow_1 = __importDefault(require("meow"));
 const ui_1 = __importDefault(require("./ui"));
-const cli = meow_1.default(`
+const cli = (0, meow_1.default)(`
 	Usage
 	  $ babel-scaner
 
@@ -25,4 +25,4 @@ const cli = meow_1.default(`
         }
     }
 });
-ink_1.render(react_1.default.createElement(ui_1.default, { name: cli.flags.name }));
+(0, ink_1.render)(react_1.default.createElement(ui_1.default, { name: cli.flags.name }));

@@ -22,21 +22,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const ink_1 = require("ink");
 const Example = () => {
-    const [tests, setTests] = react_1.useState([]);
-    react_1.useEffect(() => {
+    const [tests, setTests] = (0, react_1.useState)([]);
+    (0, react_1.useEffect)(() => {
         let completedTests = 0;
         let timer;
         const run = () => {
             // Fake 10 completed tests
             if (completedTests++ < 10) {
-                setTests(previousTests => ([
-                    // ...previousTests,
+                setTests(previousTests => [
+                    ...previousTests,
                     {
                         id: previousTests.length,
-                        title: `Test #${completedTests}`
+                        title: `Test #${previousTests.length + 1}`
                     }
-                ]));
-                timer = setTimeout(run, 1000);
+                ]);
+                setTimeout(run, 100);
             }
         };
         run();

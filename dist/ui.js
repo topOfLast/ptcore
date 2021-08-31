@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 // import TextDemo from './demo/TextDemo'
 // import BoxDemo from './demo/BoxDemo'
-const StaticDemo_1 = __importDefault(require("./demo/StaticDemo"));
-const App = () => (
-// <TextDemo/>
-// <BoxDemo />
-react_1.default.createElement(StaticDemo_1.default, null));
+// import StaticDemo from './demo/StaticDemo'
+// import Transform from './demo/Transform'
+// import UseInputDemo from './demo/useInputDemo'
+const useFocusDemo_1 = __importDefault(require("./demo/useFocusDemo"));
+const App = () => (react_1.default.createElement(react_1.default.Fragment, null,
+    react_1.default.createElement(useFocusDemo_1.default, null)));
 module.exports = App;
 exports.default = App;
