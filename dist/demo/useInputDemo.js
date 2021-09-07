@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const ink_1 = require("ink");
 const Robot = () => {
-    const { exit } = (0, ink_1.useApp)();
+    const { exit } = ink_1.useApp();
     const [x, setX] = react_1.default.useState(1);
     const [y, setY] = react_1.default.useState(1);
-    (0, ink_1.useInput)((input, key) => {
+    ink_1.useInput((input, key) => {
         if (input === 'q') {
             exit();
         }

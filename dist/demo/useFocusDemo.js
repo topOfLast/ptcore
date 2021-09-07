@@ -12,7 +12,7 @@ const Focus = () => (react_1.default.createElement(ink_1.Box, { flexDirection: "
     react_1.default.createElement(Item, { label: "Second" }),
     react_1.default.createElement(Item, { label: "Third" })));
 const Item = ({ label }) => {
-    const { isFocused } = (0, ink_1.useFocus)();
+    const { isFocused } = ink_1.useFocus();
     return (react_1.default.createElement(ink_1.Text, null,
         label,
         " ",

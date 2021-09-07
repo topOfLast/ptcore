@@ -17,6 +17,7 @@
 		"dist/cli.js"
 	],
 	"dependencies": {
+		"@babel/core": "^7.15.4",
 		"ink": "^3.0.9",
 		"meow": "^9.0.0",
 		"react": "^17.0.2"

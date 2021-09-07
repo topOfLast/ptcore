@@ -22,8 +22,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const ink_1 = require("ink");
 const Example = () => {
-    const [tests, setTests] = (0, react_1.useState)([]);
-    (0, react_1.useEffect)(() => {
+    const [tests, setTests] = react_1.useState([]);
+    react_1.useEffect(() => {
         let completedTests = 0;
         let timer;
         const run = () => {
