@@ -4,17 +4,19 @@ import React, {FC} from 'react';
 // import StaticDemo from './demo/StaticDemo'
 // import Transform from './demo/Transform'
 // import UseInputDemo from './demo/useInputDemo'
-import UseFocusDemo from './demo/useFocusDemo'
+// import UseFocusDemo from './demo/useFocusDemo'
+import HomePage from './view'
 
 const App: FC<{name?: string}> = () => (
-	<>
-	{/* <TextDemo/> */}
-	{/* <BoxDemo /> */}
-	{/* <StaticDemo /> */}
-	{/* <Transform /> */}
-	{/* <UseInputDemo /> */}
-	<UseFocusDemo />
-	</>
+	// <>
+	// {/* <TextDemo/> */}
+	// {/* <BoxDemo /> */}
+	// {/* <StaticDemo /> */}
+	// {/* <Transform /> */}
+	// {/* <UseInputDemo /> */}
+	// {/* <UseFocusDemo /> */}
+	// </>
+	<HomePage />
 );
 
 module.exports = App;

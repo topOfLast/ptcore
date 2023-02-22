@@ -9,8 +9,17 @@ const react_1 = __importDefault(require("react"));
 // import StaticDemo from './demo/StaticDemo'
 // import Transform from './demo/Transform'
 // import UseInputDemo from './demo/useInputDemo'
-const useFocusDemo_1 = __importDefault(require("./demo/useFocusDemo"));
-const App = () => (react_1.default.createElement(react_1.default.Fragment, null,
-    react_1.default.createElement(useFocusDemo_1.default, null)));
+// import UseFocusDemo from './demo/useFocusDemo'
+const view_1 = __importDefault(require("./view"));
+const App = () => (
+// <>
+// {/* <TextDemo/> */}
+// {/* <BoxDemo /> */}
+// {/* <StaticDemo /> */}
+// {/* <Transform /> */}
+// {/* <UseInputDemo /> */}
+// {/* <UseFocusDemo /> */}
+// </>
+react_1.default.createElement(view_1.default, null));
 module.exports = App;
 exports.default = App;
