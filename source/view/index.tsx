@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Text, useFocus, useFocusManager, useInput, useApp} from 'ink';
 
-import { getParse } from "../parser";
+// import { getParse } from "../parser";
 // const  scriptFile = require('../temp/script.js');
 
 const HomePage = () => {
@@ -16,31 +16,36 @@ const HomePage = () => {
 			focusPrevious();
 		} else if (key.downArrow) {
 			focusNext();
-		} else if (key.return) {
-			console.log('input', _input, '1111:', key);
-			getParse('D:/code/babel-scaner/source/temp/script.js').then( res => console.log('res:', res));
-			exit();
 		}
 	});
 
+	function handleEnter(key: string): void {
+		console.log('handle enter:', key);
+		// getParse('D:/code/babel-scaner/source/temp/script.js').then( res => console.log('res:', res));
+	}
+
 	return (<Box flexDirection="column" padding={1}>
 		<Box marginBottom={1}>
-			<Text>
-				Press Tab to focus next element, Shift+Tab to focus previous element,
-				Esc to reset focus.
+			<Text color="yellow">
+				使用'Tab', '↑', '↓'更改选项(Esc退出):
 			</Text>
 		</Box>
-		<Item label="parser" />
-		<Item label="Second" />
-		<Item label="Third" />
+		<Item autoFocus={true} label="Parser" onEnter={handleEnter} />
+		<Item autoFocus={false} label="Second" onEnter={handleEnter} />
+		<Item autoFocus={false} label="Third" onEnter={handleEnter} />
 	</Box>);
 };
 
-const Item = ({ label }:{label: string}) => {
-	const {isFocused} = useFocus();
+const Item = ({ label, autoFocus = false, onEnter }:{label: string, autoFocus: boolean, onEnter: (key: string) => void}) => {
+	const {isFocused} = useFocus({ autoFocus });
+	useInput((_input, key) => {
+		if (key.return && isFocused && typeof onEnter === 'function') {
+			onEnter(label);
+		}
+	});
 	return (
-		<Text>
-			{label} {isFocused && <Text color="green">&lt;--</Text>}
+		<Text color={isFocused ? 'green' : ''}>
+			<Text>·</Text> {label} {isFocused && <Text>👈👈</Text>}
 		</Text>
 	);
 };

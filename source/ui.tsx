@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 // import TextDemo from './demo/TextDemo'
 // import BoxDemo from './demo/BoxDemo'
 // import StaticDemo from './demo/StaticDemo'
@@ -7,7 +7,7 @@ import React, {FC} from 'react';
 // import UseFocusDemo from './demo/useFocusDemo'
 import HomePage from './view'
 
-const App: FC<{name?: string}> = () => (
+const App: FC<{name?: string, cli?: Object}> = ({ cli }) => {
 	// <>
 	// {/* <TextDemo/> */}
 	// {/* <BoxDemo /> */}
@@ -16,8 +16,11 @@ const App: FC<{name?: string}> = () => (
 	// {/* <UseInputDemo /> */}
 	// {/* <UseFocusDemo /> */}
 	// </>
-	<HomePage />
-);
+	useEffect(() => {
+		console.log('mounted:', cli)
+	}, [])
+	return <HomePage/>
+};
 
 module.exports = App;
 export default App;

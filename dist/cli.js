@@ -25,4 +25,4 @@ const cli = (0, meow_1.default)(`
         }
     }
 });
-(0, ink_1.render)(react_1.default.createElement(ui_1.default, { name: cli.flags.name }));
+(0, ink_1.render)(react_1.default.createElement(ui_1.default, { name: cli.flags.name, cli: cli }));

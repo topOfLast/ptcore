@@ -22,4 +22,4 @@ const cli = meow(`
 	}
 });
 
-render(<App name={cli.flags.name}/>);
+render(<App name={cli.flags.name} cli={cli}/>);
