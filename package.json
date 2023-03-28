@@ -1,5 +1,5 @@
 {
-	"name": "babel-scaner",
+	"name": "ptcore",
 	"version": "0.0.1",
 	"license": "MIT",
 	"bin": "dist/cli.js",
@@ -14,7 +14,7 @@
 		"test": "xo && ava"
 	},
 	"files": [
-		"dist/cli.js"
+		"dist"
 	],
 	"dependencies": {
 		"@babel/core": "7.15.4",

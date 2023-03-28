@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -25,16 +21,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(require("react"));
+exports.__esModule = true;
+var react_1 = __importStar(require("react"));
 // import TextDemo from './demo/TextDemo'
 // import BoxDemo from './demo/BoxDemo'
 // import StaticDemo from './demo/StaticDemo'
 // import Transform from './demo/Transform'
 // import UseInputDemo from './demo/useInputDemo'
 // import UseFocusDemo from './demo/useFocusDemo'
-const view_1 = __importDefault(require("./view"));
-const App = ({ cli }) => {
+var view_1 = __importDefault(require("./view"));
+var App = function (_a) {
+    var cli = _a.cli;
     // <>
     // {/* <TextDemo/> */}
     // {/* <BoxDemo /> */}
@@ -43,10 +40,10 @@ const App = ({ cli }) => {
     // {/* <UseInputDemo /> */}
     // {/* <UseFocusDemo /> */}
     // </>
-    (0, react_1.useEffect)(() => {
+    react_1.useEffect(function () {
         console.log('mounted:', cli);
     }, []);
-    return react_1.default.createElement(view_1.default, null);
+    return react_1["default"].createElement(view_1["default"], null);
 };
 module.exports = App;
-exports.default = App;
+exports["default"] = App;

@@ -21,7 +21,6 @@ const HomePage = () => {
 
 	function handleEnter(key: string): void {
 		console.log('handle enter:', key);
-		// getParse('D:/code/babel-scaner/source/temp/script.js').then( res => console.log('res:', res));
 	}
 
 	return (<Box flexDirection="column" padding={1}>

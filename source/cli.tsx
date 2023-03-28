@@ -6,13 +6,13 @@ import App from './ui';
 
 const cli = meow(`
 	Usage
-	  $ babel-scaner
+	  $ ptcore
 
 	Options
 		--name  Your name
 
 	Examples
-	  $ babel-scaner --name=Jane
+	  $ ptcore --name=Jane
 	  Hello, Jane
 `, {
 	flags: {
