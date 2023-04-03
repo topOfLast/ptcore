@@ -21,29 +21,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.__esModule = true;
-var react_1 = __importStar(require("react"));
-// import TextDemo from './demo/TextDemo'
-// import BoxDemo from './demo/BoxDemo'
-// import StaticDemo from './demo/StaticDemo'
-// import Transform from './demo/Transform'
-// import UseInputDemo from './demo/useInputDemo'
-// import UseFocusDemo from './demo/useFocusDemo'
-var view_1 = __importDefault(require("./view"));
-var App = function (_a) {
-    var cli = _a.cli;
-    // <>
-    // {/* <TextDemo/> */}
-    // {/* <BoxDemo /> */}
-    // {/* <StaticDemo /> */}
-    // {/* <Transform /> */}
-    // {/* <UseInputDemo /> */}
-    // {/* <UseFocusDemo /> */}
-    // </>
-    react_1.useEffect(function () {
-        console.log('mounted:', cli);
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importStar(require("react"));
+const view_1 = __importDefault(require("./view"));
+// @ts-ignore
+const App = ({ cli }) => {
+    // @ts-ignore;
+    const [command, setCommand] = react_1.useState('');
+    const [name, setName] = react_1.useState('');
+    react_1.useEffect(() => {
+        if (cli.input.length > 1 && cli.input[0] === 'init' && cli.input[1]) {
+            setCommand(cli.input[0]);
+            setName(cli.input[1]);
+        }
+        else {
+            cli.showHelp();
+        }
     }, []);
-    return react_1["default"].createElement(view_1["default"], null);
+    return (command === 'init' ? react_1.default.createElement(view_1.default, { projectName: name }) : react_1.default.createElement(react_1.default.Fragment, null));
 };
 module.exports = App;
-exports["default"] = App;
+exports.default = App;

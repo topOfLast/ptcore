@@ -6,14 +6,15 @@ import App from './ui';
 
 const cli = meow(`
 	Usage
-	  $ ptcore
+	  $ ptcore init <package>
 
 	Options
-		--name  Your name
+		--help show help message.
+		--version show current version.
 
 	Examples
-	  $ ptcore --name=Jane
-	  Hello, Jane
+	  $ ptcore init analytics-next
+
 `, {
 	flags: {
 		name: {

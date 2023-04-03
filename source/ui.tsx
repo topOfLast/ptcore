@@ -1,25 +1,34 @@
-import React, {FC, useEffect} from 'react';
-// import TextDemo from './demo/TextDemo'
-// import BoxDemo from './demo/BoxDemo'
-// import StaticDemo from './demo/StaticDemo'
-// import Transform from './demo/Transform'
-// import UseInputDemo from './demo/useInputDemo'
-// import UseFocusDemo from './demo/useFocusDemo'
+import React, {FC, useEffect, useState} from 'react';
 import HomePage from './view'
 
-const App: FC<{name?: string, cli?: Object}> = ({ cli }) => {
-	// <>
-	// {/* <TextDemo/> */}
-	// {/* <BoxDemo /> */}
-	// {/* <StaticDemo /> */}
-	// {/* <Transform /> */}
-	// {/* <UseInputDemo /> */}
-	// {/* <UseFocusDemo /> */}
-	// </>
+interface CliData {
+	input: string[],
+	flags: Record<string, boolean | string>
+	help: string,
+	showHelp: () => void,
+	showVersion: () => void,
+	pkg: {
+		name: string,
+		version: string,
+		license: string
+	}
+}
+
+// @ts-ignore
+const App: FC<{name?: string, cli?: Object}> = ({ cli }: { cli: CliData }) => {
+	// @ts-ignore;
+	const [command, setCommand] = useState('');
+	const [name, setName] = useState('');
+
 	useEffect(() => {
-		console.log('mounted:', cli)
+		if (cli.input.length > 1 && cli.input[0] === 'init' && cli.input[1]) {
+			setCommand(cli.input[0]);
+			setName(cli.input[1])
+		} else {
+			cli.showHelp();
+		}
 	}, [])
-	return <HomePage/>
+	return (command === 'init' ? <HomePage projectName={name}/> : <></>)
 };
 
 module.exports = App;

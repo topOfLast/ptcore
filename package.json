@@ -18,9 +18,11 @@
 	],
 	"dependencies": {
 		"@babel/core": "7.15.4",
+		"git-clone": "^0.2.0",
 		"ink": "3.0.9",
 		"meow": "9.0.0",
-		"react": "17.0.2"
+		"react": "17.0.2",
+		"rimraf": "^4.4.1"
 	},
 	"devDependencies": {
 		"@ava/typescript": "^2.0.0",
