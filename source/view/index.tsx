@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// @ts-ignore
 import { Box, Text, useFocus, useFocusManager, useInput, useApp, Newline } from 'ink';
 import { downloadTemplate } from '../utils'
 
@@ -23,7 +24,7 @@ const HomePage = ({ projectName }: { projectName: string}) => {
 	const [step, setStep] = useState(0);
 	const { focusNext, focusPrevious } = useFocusManager();
 	const { exit } = useApp();
-
+	// @ts-ignore
 	useInput((_input, key) => {
 		if (key.escape) {
 			exit();
@@ -81,6 +82,7 @@ const HomePage = ({ projectName }: { projectName: string}) => {
 
 const Item = ({ label, autoFocus = false, onEnter }:{label: string, autoFocus: boolean, onEnter: (key: string) => void}) => {
 	const {isFocused} = useFocus({ autoFocus });
+	// @ts-ignore
 	useInput((_input, key) => {
 		if (key.return && isFocused && typeof onEnter === 'function') {
 			onEnter(label);

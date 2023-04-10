@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 import React from 'react';
+// @ts-ignore;
 import {render} from 'ink';
 import meow from 'meow';
 import App from './ui';
 
+// @ts-ignore;
 const cli = meow(`
 	Usage
 	  $ ptcore init <package>
@@ -18,9 +20,10 @@ const cli = meow(`
 `, {
 	flags: {
 		name: {
-			type: 'string'
+			type: 'string',
 		}
 	}
 });
 
-render(<App name={cli.flags.name} cli={cli}/>);
+// @ts-ignore
+render(<App name={cli.flags['name']} cli={cli}/>);

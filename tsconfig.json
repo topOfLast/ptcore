@@ -2,10 +2,18 @@
 	"extends": "@sindresorhus/tsconfig",
 	"compilerOptions": {
 		"module": "commonjs",
-		"jsx": "react",
+	  	"target": "ES5",
+	  	"jsx": "react",
 		"esModuleInterop": true,
+	  	"moduleResolution": "Node",
 		"outDir": "dist",
+	  	"rootDir": "source",
 	  	"noUnusedParameters": false,
+	  	"forceConsistentCasingInFileNames": true,
+	  	"types": ["node", "react"],
+	  	"typeRoots": []
 	},
-  "include": ["source"]
+  "include": ["source"],
+  "exclude": ["node_modules/**"],
+  "skipLibCheck": true,
 }

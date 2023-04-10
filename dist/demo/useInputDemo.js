@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importDefault(require("react"));
-const ink_1 = require("ink");
-const Robot = () => {
-    const { exit } = ink_1.useApp();
-    const [x, setX] = react_1.default.useState(1);
-    const [y, setY] = react_1.default.useState(1);
-    ink_1.useInput((input, key) => {
+var react_1 = __importDefault(require("react"));
+// @ts-ignore;
+var ink_1 = require("ink");
+var Robot = function () {
+    var exit = ink_1.useApp().exit;
+    var _a = react_1.default.useState(1), x = _a[0], setX = _a[1];
+    var _b = react_1.default.useState(1), y = _b[0], setY = _b[1];
+    ink_1.useInput(function (input, key) {
         if (input === 'q') {
             exit();
         }

@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore;
 import {useInput, useApp, Box, Text} from 'ink';
 
 const Robot = () => {
@@ -6,7 +7,7 @@ const Robot = () => {
 	const [x, setX] = React.useState(1);
 	const [y, setY] = React.useState(1);
 
-	useInput((input, key) => {
+	useInput((input: string, key: { leftArrow: boolean, rightArrow: boolean, upArrow: boolean, downArrow: boolean }) => {
 		if (input === 'q') {
 			exit();
 		}

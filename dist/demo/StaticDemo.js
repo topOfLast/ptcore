@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -18,37 +22,46 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(require("react"));
-const ink_1 = require("ink");
-const Example = () => {
-    const [tests, setTests] = react_1.useState([]);
-    react_1.useEffect(() => {
-        let completedTests = 0;
-        let timer;
-        const run = () => {
+var react_1 = __importStar(require("react"));
+// @ts-ignore;
+var ink_1 = require("ink");
+var Example = function () {
+    var _a = (0, react_1.useState)([]), tests = _a[0], setTests = _a[1];
+    (0, react_1.useEffect)(function () {
+        var completedTests = 0;
+        var timer;
+        var run = function () {
             // Fake 10 completed tests
             if (completedTests++ < 10) {
-                setTests(previousTests => [
-                    ...previousTests,
+                setTests(function (previousTests) { return __spreadArray(__spreadArray([], previousTests, true), [
                     {
                         id: previousTests.length,
-                        title: `Test #${previousTests.length + 1}`
+                        title: "Test #".concat(previousTests.length + 1)
                     }
-                ]);
+                ], false); });
                 setTimeout(run, 100);
             }
         };
         run();
-        return () => {
+        return function () {
             clearTimeout(timer);
         };
     }, []);
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(ink_1.Static, { items: tests }, test => (react_1.default.createElement(ink_1.Box, { key: test.id },
+        react_1.default.createElement(ink_1.Static, { items: tests }, function (test) { return (react_1.default.createElement(ink_1.Box, { key: test.id },
             react_1.default.createElement(ink_1.Text, { color: "green" },
                 "\u2714 ",
-                test.title)))),
+                test.title))); }),
         react_1.default.createElement(ink_1.Box, { marginTop: 1 },
             react_1.default.createElement(ink_1.Text, { dimColor: true },
                 "Completed tests: ",
