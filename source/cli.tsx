@@ -6,21 +6,24 @@ import meow from 'meow';
 import App from './ui';
 
 // @ts-ignore;
-const cli = meow(`
+const cli = meow<{ input: string[], flags: Record<string, { type: string }>}>(`
 	Usage
-	  $ ptcore init <package>
+		$ ptcore <command> [options]
 
-	Options
-		--help show help message.
-		--version show current version.
+	Commands
+		init: Initialize a project
+		add: Add a new package to an existing project
 
 	Examples
-	  $ ptcore init analytics-next
+		$ ptcore init analytics-next
 
 `, {
+	autoHelp: false,
 	flags: {
 		name: {
 			type: 'string',
+			alias: 'n',
+			isRequired: false,
 		}
 	}
 });

@@ -10,10 +10,13 @@ var ink_1 = require("ink");
 var meow_1 = __importDefault(require("meow"));
 var ui_1 = __importDefault(require("./ui"));
 // @ts-ignore;
-var cli = meow_1.default("\n\tUsage\n\t  $ ptcore init <package>\n\n\tOptions\n\t\t--help show help message.\n\t\t--version show current version.\n\n\tExamples\n\t  $ ptcore init analytics-next\n\n", {
+var cli = meow_1.default("\n\tUsage\n\t\t$ ptcore <command> [options]\n\n\tCommands\n\t\tinit: Initialize a project\n\t\tadd: Add a new package to an existing project\n\n\tExamples\n\t\t$ ptcore init analytics-next\n\n", {
+    autoHelp: false,
     flags: {
         name: {
             type: 'string',
+            alias: 'n',
+            isRequired: false,
         }
     }
 });

@@ -27,16 +27,15 @@ var react_1 = __importStar(require("react"));
 var ink_1 = require("ink");
 // @ts-ignore;
 var TextInput_1 = __importDefault(require("./components/TextInput"));
-var view_1 = __importDefault(require("./view"));
+var InitProject_1 = __importDefault(require("./view/InitProject"));
 // @ts-ignore
 var App = function (_a) {
     var cli = _a.cli;
-    // @ts-ignore;
     var _b = react_1.useState(''), command = _b[0], setCommand = _b[1];
     var _c = react_1.useState(''), name = _c[0], setName = _c[1];
     var _d = react_1.useState(''), input = _d[0], setInput = _d[1];
     react_1.useEffect(function () {
-        if (cli.input.length > 1 && cli.input[0] === 'init') {
+        if (cli.input.length > 0) {
             setCommand(cli.input[0]);
             setName(cli.input[1] || '');
         }
@@ -44,11 +43,13 @@ var App = function (_a) {
             cli.showHelp();
         }
     }, []);
-    return (command === 'init' ? name ? react_1.default.createElement(view_1.default, { projectName: name }) :
-        react_1.default.createElement(ink_1.Box, null,
+    return (command === 'init' ? name ? react_1.default.createElement(InitProject_1.default, { projectName: name }) :
+        react_1.default.createElement(ink_1.Box, { flexDirection: "column", padding: 1 },
+            react_1.default.createElement(ink_1.Box, { marginRight: 1, marginBottom: 1 },
+                react_1.default.createElement(ink_1.Text, null, '使用ptcore - 创建项目')),
             react_1.default.createElement(ink_1.Box, { marginRight: 1 },
-                react_1.default.createElement(ink_1.Text, null, "Enter project name:")),
-            react_1.default.createElement(TextInput_1.default, { value: input, onChange: setInput, onSubmit: function () { return setName(input); } }))
+                react_1.default.createElement(ink_1.Text, null, "Please enter project name:"),
+                react_1.default.createElement(TextInput_1.default, { value: input, onChange: setInput, onSubmit: function () { return setName(input); } })))
         : react_1.default.createElement(react_1.default.Fragment, null));
 };
 module.exports = App;

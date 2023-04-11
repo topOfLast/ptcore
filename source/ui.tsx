@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Box, Text } from 'ink';
 // @ts-ignore;
 import TextInput from './components/TextInput';
-import HomePage from './view'
+import InitProject from './view/InitProject'
 
 interface CliData {
 	input: string[],
@@ -19,28 +19,30 @@ interface CliData {
 }
 
 // @ts-ignore
-const App: FC<{name?: string, cli?: Object}> = ({ cli }: { cli: CliData }) => {
-	// @ts-ignore;
+const App: FC<{name?: string, cli?: CliData}> = ({ cli }: { cli: CliData }) => {
 	const [command, setCommand] = useState('');
 	const [name, setName] = useState('');
 	const [input, setInput] = useState('');
 
 	useEffect(() => {
-		if (cli.input.length > 1 && cli.input[0] === 'init') {
-			setCommand(cli.input[0]);
+		if (cli.input.length > 0) {
+			setCommand(cli.input[0] as string);
 			setName(cli.input[1] || '')
 		} else {
 			cli.showHelp();
 		}
 	}, [])
-	return (command === 'init' ? name ? <HomePage projectName={name}/> :
-			<Box>
-				<Box marginRight={1}>
-					<Text>Enter project name:</Text>
-				</Box>
+	return (command === 'init' ? name ? <InitProject projectName={name}/> :
+		<Box flexDirection="column" padding={1}>
+			<Box marginRight={1} marginBottom={1}>
+				<Text>{'使用ptcore - 创建项目'}</Text>
+			</Box>
+			<Box marginRight={1}>
+				<Text>Please enter project name:</Text>
 				<TextInput value={input} onChange={setInput} onSubmit={() => setName(input)} />
 			</Box>
-		: <></>)
+		</Box>
+	: <></>)
 };
 
 module.exports = App;
