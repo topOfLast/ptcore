@@ -9,6 +9,8 @@ var react_1 = __importDefault(require("react"));
 var ink_1 = require("ink");
 var meow_1 = __importDefault(require("meow"));
 var ui_1 = __importDefault(require("./ui"));
+// @ts-ignore
+var figlet_1 = __importDefault(require("figlet"));
 // @ts-ignore;
 var cli = meow_1.default("\n\tUsage\n\t\t$ ptcore <command> [options]\n\n\tCommands\n\t\tinit: Initialize a project\n\t\tadd: Add a new package to an existing project\n\n\tExamples\n\t\t$ ptcore init analytics-next\n\n", {
     autoHelp: false,
@@ -19,6 +21,14 @@ var cli = meow_1.default("\n\tUsage\n\t\t$ ptcore <command> [options]\n\n\tComma
             isRequired: false,
         }
     }
+});
+figlet_1.default("ptcore", {
+    font: 'Small Isometric1'
+}, function (err, data) {
+    if (err) {
+        return;
+    }
+    console.log(data);
 });
 // @ts-ignore
 ink_1.render(react_1.default.createElement(ui_1.default, { name: cli.flags['name'], cli: cli }));

@@ -4,6 +4,8 @@ import React from 'react';
 import {render} from 'ink';
 import meow from 'meow';
 import App from './ui';
+// @ts-ignore
+import figlet from 'figlet';
 
 // @ts-ignore;
 const cli = meow<{ input: string[], flags: Record<string, { type: string }>}>(`
@@ -26,6 +28,15 @@ const cli = meow<{ input: string[], flags: Record<string, { type: string }>}>(`
 			isRequired: false,
 		}
 	}
+});
+
+figlet("ptcore", {
+	font: 'Small Isometric1'
+}, function (err: any, data: string) {
+	if (err) {
+		return;
+	}
+	console.log(data);
 });
 
 // @ts-ignore
