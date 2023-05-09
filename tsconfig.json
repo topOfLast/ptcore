@@ -1,19 +1,26 @@
 {
-	"extends": "@sindresorhus/tsconfig",
-	"compilerOptions": {
-		"module": "commonjs",
-	  	"target": "ES5",
-	  	"jsx": "react",
-		"esModuleInterop": true,
-	  	"moduleResolution": "Node",
-		"outDir": "dist",
-	  	"rootDir": "source",
-	  	"noUnusedParameters": false,
-	  	"forceConsistentCasingInFileNames": true,
-	  	"types": ["node", "react"],
-	  	"typeRoots": []
-	},
-  "include": ["source"],
-  "exclude": ["node_modules/**"],
-  "skipLibCheck": true,
+    "extends": "@sindresorhus/tsconfig",
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "jsx": "react",
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "outDir": "dist",
+        "rootDir": "source",
+        "noUnusedParameters": false,
+        "forceConsistentCasingInFileNames": true,
+        "types": [
+            "node",
+            "react"
+        ],
+        "typeRoots": []
+    },
+    "include": [
+        "source"
+    ],
+    "exclude": [
+        "node_modules/**"
+    ],
+    "skipLibCheck": true
 }

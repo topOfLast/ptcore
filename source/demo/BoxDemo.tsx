@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore;
-import { Box, Text } from 'ink';
+import {Box, Text} from 'ink';
 
 export default class BoxDemo extends React.Component {
     render() {

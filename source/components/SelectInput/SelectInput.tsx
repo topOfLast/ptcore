@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import {useState, useEffect, useRef, useCallback} from 'react';
 // @ts-ignore;
 import isEqual from 'lodash.isequal';
@@ -11,177 +11,177 @@ import ItemComponent from './Item.js';
 import type {Props as ItemProps} from './Item.js';
 
 type Props<V> = {
-	/**
-	 * Items to display in a list. Each item must be an object and have `label` and `value` props, it may also optionally have a `key` prop.
-	 * If no `key` prop is provided, `value` will be used as the item key.
-	 */
-	items?: Array<Item<V>>;
+    /**
+     * Items to display in a list. Each item must be an object and have `label` and `value` props, it may also optionally have a `key` prop.
+     * If no `key` prop is provided, `value` will be used as the item key.
+     */
+    items?: Array<Item<V>>;
 
-	/**
-	 * Listen to user's input. Useful in case there are multiple input components at the same time and input must be "routed" to a specific component.
-	 *
-	 * @default true
-	 */
-	isFocused?: boolean;
+    /**
+     * Listen to user's input. Useful in case there are multiple input components at the same time and input must be "routed" to a specific component.
+     *
+     * @default true
+     */
+    isFocused?: boolean;
 
-	/**
-	 * Index of initially-selected item in `items` array.
-	 *
-	 * @default 0
-	 */
-	initialIndex?: number;
+    /**
+     * Index of initially-selected item in `items` array.
+     *
+     * @default 0
+     */
+    initialIndex?: number;
 
-	/**
-	 * Number of items to display.
-	 */
-	limit?: number;
+    /**
+     * Number of items to display.
+     */
+    limit?: number;
 
-	/**
-	 * Custom component to override the default indicator component.
-	 */
-	indicatorComponent?: FC<IndicatorProps>;
+    /**
+     * Custom component to override the default indicator component.
+     */
+    indicatorComponent?: FC<IndicatorProps>;
 
-	/**
-	 * Custom component to override the default item component.
-	 */
-	itemComponent?: FC<ItemProps>;
+    /**
+     * Custom component to override the default item component.
+     */
+    itemComponent?: FC<ItemProps>;
 
-	/**
-	 * Function to call when user selects an item. Item object is passed to that function as an argument.
-	 */
-	onSelect?: (item: Item<V>) => void;
+    /**
+     * Function to call when user selects an item. Item object is passed to that function as an argument.
+     */
+    onSelect?: (item: Item<V>) => void;
 
-	/**
-	 * Function to call when user highlights an item. Item object is passed to that function as an argument.
-	 */
-	onHighlight?: (item: Item<V>) => void;
+    /**
+     * Function to call when user highlights an item. Item object is passed to that function as an argument.
+     */
+    onHighlight?: (item: Item<V>) => void;
 };
 
 export type Item<V> = {
-	key?: string;
-	label: string;
-	value: V;
+    key?: string;
+    label: string;
+    value: V;
 };
 
 function SelectInput<V>({
-	items = [],
-	isFocused = true,
-	initialIndex = 0,
-	indicatorComponent = Indicator,
-	itemComponent = ItemComponent,
-	limit: customLimit,
-	onSelect,
-	onHighlight
-}: Props<V>) {
-	const hasLimit = typeof customLimit === 'number' && items.length > customLimit;
-	// @ts-ignore;
-	const limit = hasLimit ? Math.min(customLimit, items.length) : items.length;
-	const lastIndex = limit - 1;
-	const [rotateIndex, setRotateIndex] = useState(
-		initialIndex > lastIndex ? lastIndex - initialIndex : 0
-	);
-	const [selectedIndex, setSelectedIndex] = useState(
-		initialIndex ? (initialIndex > lastIndex ? lastIndex : initialIndex) : 0
-	);
-	const previousItems = useRef<Array<Item<V>>>(items);
+                            items = [],
+                            isFocused = true,
+                            initialIndex = 0,
+                            indicatorComponent = Indicator,
+                            itemComponent = ItemComponent,
+                            limit: customLimit,
+                            onSelect,
+                            onHighlight
+                        }: Props<V>) {
+    const hasLimit = typeof customLimit === 'number' && items.length > customLimit;
+    // @ts-ignore;
+    const limit = hasLimit ? Math.min(customLimit, items.length) : items.length;
+    const lastIndex = limit - 1;
+    const [rotateIndex, setRotateIndex] = useState(
+        initialIndex > lastIndex ? lastIndex - initialIndex : 0
+    );
+    const [selectedIndex, setSelectedIndex] = useState(
+        initialIndex ? (initialIndex > lastIndex ? lastIndex : initialIndex) : 0
+    );
+    const previousItems = useRef<Array<Item<V>>>(items);
 
-	useEffect(() => {
-		if (
-			!isEqual(
-				previousItems.current.map(item => item.value),
-				items.map(item => item.value)
-			)
-		) {
-			setRotateIndex(0);
-			setSelectedIndex(0);
-		}
+    useEffect(() => {
+        if (
+            !isEqual(
+                previousItems.current.map(item => item.value),
+                items.map(item => item.value)
+            )
+        ) {
+            setRotateIndex(0);
+            setSelectedIndex(0);
+        }
 
-		previousItems.current = items;
-	}, [items]);
+        previousItems.current = items;
+    }, [items]);
 
-	useInput(
-		useCallback(
-			(input, key) => {
-				if (input === 'k' || key.upArrow) {
-					const lastIndex = (hasLimit ? limit : items.length) - 1;
-					const atFirstIndex = selectedIndex === 0;
-					const nextIndex = hasLimit ? selectedIndex : lastIndex;
-					const nextRotateIndex = atFirstIndex ? rotateIndex + 1 : rotateIndex;
-					const nextSelectedIndex = atFirstIndex
-						? nextIndex
-						: selectedIndex - 1;
+    useInput(
+        useCallback(
+            (input, key) => {
+                if (input === 'k' || key.upArrow) {
+                    const lastIndex = (hasLimit ? limit : items.length) - 1;
+                    const atFirstIndex = selectedIndex === 0;
+                    const nextIndex = hasLimit ? selectedIndex : lastIndex;
+                    const nextRotateIndex = atFirstIndex ? rotateIndex + 1 : rotateIndex;
+                    const nextSelectedIndex = atFirstIndex
+                        ? nextIndex
+                        : selectedIndex - 1;
 
-					setRotateIndex(nextRotateIndex);
-					setSelectedIndex(nextSelectedIndex);
+                    setRotateIndex(nextRotateIndex);
+                    setSelectedIndex(nextSelectedIndex);
 
-					const slicedItems = hasLimit
-						? arrayRotate(items, nextRotateIndex).slice(0, limit)
-						: items;
+                    const slicedItems = hasLimit
+                        ? arrayRotate(items, nextRotateIndex).slice(0, limit)
+                        : items;
 
-					if (typeof onHighlight === 'function') {
-						onHighlight(slicedItems[nextSelectedIndex]!);
-					}
-				}
+                    if (typeof onHighlight === 'function') {
+                        onHighlight(slicedItems[nextSelectedIndex]!);
+                    }
+                }
 
-				if (input === 'j' || key.downArrow) {
-					const atLastIndex =
-						selectedIndex === (hasLimit ? limit : items.length) - 1;
-					const nextIndex = hasLimit ? selectedIndex : 0;
-					const nextRotateIndex = atLastIndex ? rotateIndex - 1 : rotateIndex;
-					const nextSelectedIndex = atLastIndex ? nextIndex : selectedIndex + 1;
+                if (input === 'j' || key.downArrow) {
+                    const atLastIndex =
+                        selectedIndex === (hasLimit ? limit : items.length) - 1;
+                    const nextIndex = hasLimit ? selectedIndex : 0;
+                    const nextRotateIndex = atLastIndex ? rotateIndex - 1 : rotateIndex;
+                    const nextSelectedIndex = atLastIndex ? nextIndex : selectedIndex + 1;
 
-					setRotateIndex(nextRotateIndex);
-					setSelectedIndex(nextSelectedIndex);
+                    setRotateIndex(nextRotateIndex);
+                    setSelectedIndex(nextSelectedIndex);
 
-					const slicedItems = hasLimit
-						? arrayRotate(items, nextRotateIndex).slice(0, limit)
-						: items;
+                    const slicedItems = hasLimit
+                        ? arrayRotate(items, nextRotateIndex).slice(0, limit)
+                        : items;
 
-					if (typeof onHighlight === 'function') {
-						onHighlight(slicedItems[nextSelectedIndex]!);
-					}
-				}
+                    if (typeof onHighlight === 'function') {
+                        onHighlight(slicedItems[nextSelectedIndex]!);
+                    }
+                }
 
-				if (key.return) {
-					const slicedItems = hasLimit
-						? arrayRotate(items, rotateIndex).slice(0, limit)
-						: items;
+                if (key.return) {
+                    const slicedItems = hasLimit
+                        ? arrayRotate(items, rotateIndex).slice(0, limit)
+                        : items;
 
-					if (typeof onSelect === 'function') {
-						onSelect(slicedItems[selectedIndex]!);
-					}
-				}
-			},
-			[
-				hasLimit,
-				limit,
-				rotateIndex,
-				selectedIndex,
-				items,
-				onSelect,
-				onHighlight
-			]
-		),
-		{isActive: isFocused}
-	);
+                    if (typeof onSelect === 'function') {
+                        onSelect(slicedItems[selectedIndex]!);
+                    }
+                }
+            },
+            [
+                hasLimit,
+                limit,
+                rotateIndex,
+                selectedIndex,
+                items,
+                onSelect,
+                onHighlight
+            ]
+        ),
+        {isActive: isFocused}
+    );
 
-	const slicedItems = hasLimit
-		? arrayRotate(items, rotateIndex).slice(0, limit)
-		: items;
+    const slicedItems = hasLimit
+        ? arrayRotate(items, rotateIndex).slice(0, limit)
+        : items;
 
-	return (
-		<Box flexDirection="column">
-			{slicedItems.map((item: Item<V>, index: number) => {
-				const isSelected = index === selectedIndex;
-				return (
-					<Box key={item.key}>
-						{React.createElement(indicatorComponent, {isSelected})}
-						{React.createElement(itemComponent, {...item, isSelected})}
-					</Box>
-				);
-			})}
-		</Box>
-	);
+    return (
+        <Box flexDirection="column">
+            {slicedItems.map((item: Item<V>, index: number) => {
+                const isSelected = index === selectedIndex;
+                return (
+                    <Box key={item.key}>
+                        {React.createElement(indicatorComponent, {isSelected})}
+                        {React.createElement(itemComponent, {...item, isSelected})}
+                    </Box>
+                );
+            })}
+        </Box>
+    );
 }
 
 export default SelectInput;

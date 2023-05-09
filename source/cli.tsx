@@ -8,7 +8,7 @@ import App from './ui';
 import figlet from 'figlet';
 
 // @ts-ignore;
-const cli = meow<{ input: string[], flags: Record<string, { type: string }>}>(`
+const cli = meow<{ input: string[], flags: Record<string, { type: string }> }>(`
 	Usage
 		$ ptcore <command> [options]
 
@@ -20,23 +20,23 @@ const cli = meow<{ input: string[], flags: Record<string, { type: string }>}>(`
 		$ ptcore init analytics-next
 
 `, {
-	autoHelp: false,
-	flags: {
-		name: {
-			type: 'string',
-			alias: 'n',
-			isRequired: false,
-		}
-	}
+    autoHelp: false,
+    flags: {
+        name: {
+            type: 'string',
+            alias: 'n',
+            isRequired: false,
+        }
+    }
 });
 
 figlet("ptcore", {
-	font: 'Small Isometric1'
+    font: 'Small Isometric1'
 }, function (err: any, data: string) {
-	if (err) {
-		return;
-	}
-	console.log(data);
+    if (err) {
+        return;
+    }
+    console.log(data);
 });
 
 // @ts-ignore
