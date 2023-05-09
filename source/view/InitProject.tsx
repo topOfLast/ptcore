@@ -79,7 +79,7 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 			? <Box flexDirection="column" padding={1}>
 				<Text color="green">项目创建成功！</Text>
 				<Text color="green">使用 cd {projectName} 进入项目目录。</Text>
-				<Text color="green">运行 yarn demo 启动项目。</Text>
+				<Text color="green">运行 yarn {projectName} 启动项目。</Text>
 				<Text color="green">或者运行 ptcore add appName 在项目中新增app。</Text>
 			</Box>
 			: isShowTask

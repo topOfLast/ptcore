@@ -2,10 +2,15 @@ const gitClone = require('git-clone/promise');
 const rm = require('rimraf').sync;
 const spawn = require('cross-spawn');
 const replaceInFile = require('replace-in-file');
+const { promises: fs } = require('fs');
 
 export const NEED_REPLACE_FILES = [
 	'package.json',
 	'README.md',
+	'apps/**/README.md',
+	'apps/**/package.json',
+	'apps/**/.env.development',
+	'apps/**/.env.production',
 	'apps/**/*.js',
 	'apps/**/*.ts',
 	'apps/**/*.html',
@@ -21,6 +26,28 @@ export const REPLACE_APP_KEY = /\{\{APP_NAME\}\}/g;
 
 export function sleep(ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const replaceInFilePromise = (options: any) => {
+	return new Promise<void>((resolve, reject) => {
+		try {
+			replaceInFile(options, () => resolve());
+		} catch (e) {
+			reject(e);
+		}
+	});
+}
+
+/**
+ * 添加项目启动命令
+ * @param path
+ * @param name
+ */
+async function addRunScript(path: string, name: string): Promise<void> {
+	const file = await fs.readFile(path, 'utf8');
+	const fileObj = JSON.parse(file);
+	fileObj.scripts[name] = `yarn workspace ${name} run serve`;
+	return fs.writeFile(path, JSON.stringify(fileObj, null, 4), 'utf8');
 }
 
 /**
@@ -57,18 +84,32 @@ export async function downloadTemplate(data: { lang: string, vue: string, type: 
 	const templateUrl = 'git@git.patsnap.com:core-product/tpl-starters.git'
 	await gitClone(templateUrl, path, {
 		checkout: `template-${data.lang}-${data.vue}-${data.type}`,
-	})
+	});
+	await gitClone(templateUrl, `${path}/apps/${path}`, {
+		checkout: 'template-app',
+	});
 	rm(path + '/.git');
+	rm(`${path}/apps/${path}/.git`);
 	return true;
 }
 
 export async function initProjectDir(data: { lang: string, vue: string, type: string }, name: string) {
-	await replaceInFile({
+	// 替换项目名称
+	await replaceInFilePromise({
 		files: NEED_REPLACE_FILES.map(file => `${name}/${file}`),
 		ignore: IGNORE_REPLACE_FILES.map(file => `${name}/${file}`),
 		from: REPLACE_PROJECT_KEY,
 		to: name,
 	});
+	// 替换应用名称
+	await replaceInFilePromise({
+		files: NEED_REPLACE_FILES.map(file => `${name}/${file}`),
+		ignore: IGNORE_REPLACE_FILES.map(file => `${name}/${file}`),
+		from: REPLACE_APP_KEY,
+		to: name,
+	});
+	// 添加启动命令
+	await addRunScript(`${name}/package.json`, name);
 	return;
 }
 
