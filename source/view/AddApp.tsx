@@ -5,7 +5,7 @@ import cliSpinners from "cli-spinners";
 import SelectInput from '../components/SelectInput';
 import TextInput from '../components/TextInput';
 import {Task, TaskList} from '../components/TaskList';
-import {downloadTemplate, installDependencies, initProjectDir, OPTIONS} from '../utils'
+import {downloadAppTemplate, installAppDependencies, initAppDir, OPTIONS} from '../utils'
 
 const TIPs = [
 	'请选择使用的语言：',
@@ -15,7 +15,7 @@ const TIPs = [
 
 const data: { lang: string, vue: string, type: string } = {} as { lang: string, vue: string, type: string };
 
-const HomePage = ({ projectName }: { projectName: string }) => {
+const AddApp = ({ appName }: { appName: string }) => {
 	const [step, setStep] = useState(0);
 	const [input, setInput] = useState('');
 	const [showSuccess, setShowSuccess] = useState(false);
@@ -29,11 +29,11 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 			setInput('');
 			if (firstChat.toUpperCase() === 'Y') {
 				setIsShowTask(true);
-				downloadTemplate(data, projectName).then(() => {
+				downloadAppTemplate(data, appName).then(() => {
 					setTaskStatus(['success', 'loading', 'pending']);
-					initProjectDir(data, projectName).then(() => {
+					initAppDir(data, appName).then(() => {
 						setTaskStatus(['success', 'success', 'loading']);
-						installDependencies(data, projectName).then(() => {
+						installAppDependencies(data, appName).then(() => {
 							setTaskStatus(['success', 'success', 'success']);
 							setShowSuccess(true);
 							exit();
@@ -71,15 +71,13 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 
 	return (showSuccess
 			? <Box flexDirection="column" padding={1}>
-				<Text color="green">项目创建成功！</Text>
-				<Text color="green">1.使用 cd {projectName} 进入项目目录。</Text>
-				<Text color="green">2.运行 yarn {projectName} 启动项目。</Text>
-				<Text color="green">  或者运行 ptcore add appName 在项目中新增app。</Text>
+				<Text color="green">app添加成功！</Text>
+				<Text color="green">运行 yarn {appName} 启动项目。</Text>
 			</Box>
 			: isShowTask
 				? <Box padding={1}>
 					<TaskList>
-						<Text>{`ptcore - 正在创建项目 ${projectName}：`}<Newline/></Text>
+						<Text>{`ptcore - 正在添加 ${appName}：`}<Newline/></Text>
 						<Task label="1. 下载模板" state={taskStatus[0]} spinner={cliSpinners.dots}/>
 						<Task label="2. 初始化目录" state={taskStatus[1]} spinner={cliSpinners.dots}/>
 						<Task label="3. 安装项目依赖" state={taskStatus[2]} spinner={cliSpinners.dots}/>
@@ -88,10 +86,10 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 				: step === 3
 					? <Box marginBottom={1} padding={1}>
 						<Text>
-							<Text>{`ptcore - 正在初始化项目 ${projectName} 配置`}</Text>
+							<Text>{`ptcore - 正在初始化 ${appName} 配置`}</Text>
 							<Newline/><Newline/>
 							<Text color="yellow">
-								{`你选择的配置如下: lang: ${data.lang} + ${data.vue} + ${data.type}。是否确认开始初始化？（Y/N）`}
+								{`你选择的配置如下: lang: ${data.lang} + ${data.vue} + ${data.type}。是否确认开始添加App？（Y/N）`}
 							</Text>
 							<TextInput value={input} onChange={setInput} onSubmit={handleConfirm}/>
 						</Text>
@@ -99,7 +97,7 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 					: <Box flexDirection="column" padding={1}>
 						<Box marginBottom={1}>
 							<Text>
-								<Text>{`ptcore - 正在初始化项目 ${projectName} 配置`}</Text>
+								<Text>{`ptcore - 正在初始化 ${appName} 配置`}</Text>
 								<Newline/>
 								<Text color="yellow"> {TIPs[step]} </Text>
 							</Text>
@@ -109,4 +107,4 @@ const HomePage = ({ projectName }: { projectName: string }) => {
 	);
 };
 
-export default HomePage;
+export default AddApp;

@@ -28,6 +28,7 @@ var ink_1 = require("ink");
 // @ts-ignore;
 var TextInput_1 = __importDefault(require("./components/TextInput"));
 var InitProject_1 = __importDefault(require("./view/InitProject"));
+var AddApp_1 = __importDefault(require("./view/AddApp"));
 // @ts-ignore
 var App = function (_a) {
     var cli = _a.cli;
@@ -43,14 +44,28 @@ var App = function (_a) {
             cli.showHelp();
         }
     }, []);
-    return (command === 'init' ? name ? react_1.default.createElement(InitProject_1.default, { projectName: name }) :
-        react_1.default.createElement(ink_1.Box, { flexDirection: "column", padding: 1 },
-            react_1.default.createElement(ink_1.Box, { marginRight: 1, marginBottom: 1 },
-                react_1.default.createElement(ink_1.Text, null, '使用ptcore - 创建项目')),
-            react_1.default.createElement(ink_1.Box, { marginRight: 1 },
-                react_1.default.createElement(ink_1.Text, null, "Please enter project name:"),
-                react_1.default.createElement(TextInput_1.default, { value: input, onChange: setInput, onSubmit: function () { return setName(input); } })))
-        : react_1.default.createElement(react_1.default.Fragment, null));
+    return (
+    // 初始化项目
+    command === 'init'
+        ? name
+            ? react_1.default.createElement(InitProject_1.default, { projectName: name })
+            : react_1.default.createElement(ink_1.Box, { flexDirection: "column", padding: 1 },
+                react_1.default.createElement(ink_1.Box, { marginRight: 1, marginBottom: 1 },
+                    react_1.default.createElement(ink_1.Text, null, '使用ptcore - 创建项目')),
+                react_1.default.createElement(ink_1.Box, { marginRight: 1 },
+                    react_1.default.createElement(ink_1.Text, null, "Please enter project name:"),
+                    react_1.default.createElement(TextInput_1.default, { value: input, onChange: setInput, onSubmit: function () { return setName(input); } })))
+        // 新增app
+        : command === 'add'
+            ? name
+                ? react_1.default.createElement(AddApp_1.default, { appName: name })
+                : react_1.default.createElement(ink_1.Box, { flexDirection: "column", padding: 1 },
+                    react_1.default.createElement(ink_1.Box, { marginRight: 1, marginBottom: 1 },
+                        react_1.default.createElement(ink_1.Text, null, '使用ptcore - 新增应用')),
+                    react_1.default.createElement(ink_1.Box, { marginRight: 1 },
+                        react_1.default.createElement(ink_1.Text, null, "Please enter app name:"),
+                        react_1.default.createElement(TextInput_1.default, { value: input, onChange: setInput, onSubmit: function () { return setName(input); } })))
+            : react_1.default.createElement(react_1.default.Fragment, null));
 };
 module.exports = App;
 exports.default = App;

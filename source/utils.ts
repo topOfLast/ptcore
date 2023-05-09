@@ -16,6 +16,23 @@ export const NEED_REPLACE_FILES = [
 	'apps/**/*.html',
 ];
 
+export const APP_NEED_REPLACE_FILES = [
+	'package.json',
+	'README.md',
+	'.env.development',
+	'.env.production',
+	'**/README.md',
+	'**/*.js',
+	'**/*.ts',
+	'**/*.html',
+];
+
+export const OPTIONS = [
+	[{key: 'ts', label: 'TypeScript', value: 'ts'}, {key: 'js', label: 'JavaScript', value: 'js'},],
+	[{key: 'vue2', label: 'Vue 2.7+', value: 'vue2'}, {key: 'vue3', label: 'Vue 3+', value: 'vue3'},],
+	[{key: 'spa', label: 'SPA', value: 'spa'}, {key: 'ssr', label: 'SSR', value: 'ssr'},],
+]
+
 export const IGNORE_REPLACE_FILES = [
 	'node_modules/**',
 	'common-i18n/**',
@@ -116,5 +133,32 @@ export async function initProjectDir(data: { lang: string, vue: string, type: st
 export async function installDependencies(data: { lang: string, vue: string, type: string }, path: string) {
 	await runCommand('git', ['clone', 'git@git.patsnap.com:core-product/common/vue2/common-i18n.git'], path);
 	await runCommand('yarn', [], path);
+	return;
+}
+
+export async function downloadAppTemplate(data: { lang: string, vue: string, type: string }, path: string) {
+	const templateUrl = 'git@git.patsnap.com:core-product/tpl-starters.git'
+	await gitClone(templateUrl, `apps/${path}`, {
+		checkout: 'template-app',
+	});
+	rm(`apps/${path}/.git`);
+	return true;
+}
+
+export async function initAppDir(data: { lang: string, vue: string, type: string }, name: string) {
+	// 替换应用名称
+	await replaceInFilePromise({
+		files: NEED_REPLACE_FILES,
+		ignore: IGNORE_REPLACE_FILES,
+		from: REPLACE_APP_KEY,
+		to: name,
+	});
+	// 添加启动命令
+	await addRunScript(`package.json`, name);
+	return;
+}
+
+export async function installAppDependencies(data: { lang: string, vue: string, type: string }, path: string) {
+	await runCommand('yarn', [], './');
 	return;
 }
