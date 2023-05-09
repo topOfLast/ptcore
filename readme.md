@@ -18,10 +18,21 @@ $ ptcore --help
   Usage
     $ ptcore
 
+  Commands
+	init  Init a new project
+	add  Add a app to project
+
   Options
-    --name  Your name
+
 
   Examples
-    $ ptcore --name=Jane
-    Hello, Jane
+    $ ptcore init my-proj
+
+    $ ptcore add my-app
 ```
+
+## 分支说明
+
+- master: ptcore cli工具主分支
+- template-ts-vue2-spa: ts+vue2+spa项目模板分支，用于创建新vue2.7的SPA项目
+- template-app: app模板分支，用于创建新的app
