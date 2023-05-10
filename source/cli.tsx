@@ -21,6 +21,7 @@ const cli = meow<{ input: string[], flags: Record<string, { type: string }> }>(`
 
 `, {
     autoHelp: false,
+    autoVersion: true,
     flags: {
         name: {
             type: 'string',

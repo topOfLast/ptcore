@@ -2,8 +2,6 @@ import React, {FC} from 'react';
 import {useState, useEffect, useRef, useCallback} from 'react';
 // @ts-ignore;
 import isEqual from 'lodash.isequal';
-// @ts-ignore;
-import arrayRotate from 'arr-rotate';
 import {Box, useInput} from 'ink';
 import Indicator from './Indicator.js';
 import type {Props as IndicatorProps} from './Indicator.js';
@@ -62,6 +60,15 @@ export type Item<V> = {
     label: string;
     value: V;
 };
+
+function arrayRotate<V>(input: Array<V>, n: number) {
+    if (!Array.isArray(input)) {
+        throw new TypeError(`Expected an array, got ${typeof input}`);
+    }
+    const x = input.slice();
+    const num = typeof n === 'number' ? n : 0;
+    return x.splice(-num % x.length).concat(x);
+}
 
 function SelectInput<V>({
                             items = [],
