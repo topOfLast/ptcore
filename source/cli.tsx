@@ -10,14 +10,14 @@ import figlet from 'figlet';
 // @ts-ignore;
 const cli = meow<{ input: string[], flags: Record<string, { type: string }> }>(`
 	Usage
-		$ ptcore <command> [options]
+		$ patsnap-core <command> [options]
 
 	Commands
 		init: Initialize a project
 		add: Add a new package to an existing project
 
 	Examples
-		$ ptcore init analytics-next
+		$ patsnap-core init analytics-next
 
 `, {
     autoHelp: false,

@@ -1,6 +1,6 @@
 {
-    "name": "ptcore",
-    "version": "1.0.2",
+    "name": "patsnap-core",
+    "version": "1.0.4",
     "license": "MIT",
     "bin": "dist/cli.js",
     "engines": {
@@ -32,7 +32,6 @@
         "rimraf": "4.4.1"
     },
     "publishConfig": {
-        "registry": "http://npm.nexus.zhihuiya.com/repository/npm-private/"
     },
     "devDependencies": {
         "@ava/typescript": "2.0.0",
