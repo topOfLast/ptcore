@@ -1,6 +1,6 @@
 {
     "name": "patsnap-core",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "license": "MIT",
     "bin": "dist/cli.js",
     "engines": {
@@ -17,7 +17,6 @@
         "dist"
     ],
     "dependencies": {
-        "@babel/core": "7.15.4",
         "cli-spinners": "2.8.0",
         "cross-spawn": "7.0.3",
         "figlet": "1.6.0",
